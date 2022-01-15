@@ -1,5 +1,5 @@
 # CPP-Complex-Plot
-Using the PPM image format &amp; domain colouring to produce simple complex plots.
+A simple example of using the PPM image format &amp; domain colouring to produce simple complex plots.
 To run, just pipe the output into a new .ppm file.
 
 Sample plot of Z = X + iY:
