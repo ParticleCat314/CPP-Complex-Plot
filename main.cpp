@@ -4,73 +4,6 @@
 /// Define pi as a value that won't change throughout the runtime. I believe the compiler just subs this for the keyword.
 #define PI 3.14159265358979323
 
-class complex{
-public:
-    float real;
-    float imaginary;
-    complex(){};
-    complex(float a, float b) {real = a; imaginary = b;}
-};
-
-inline complex operator* (const complex &z1, const complex &z2){
-    return complex(z1.real*z1.real + z1.imaginary*z2.imaginary,z1.real*z2.imaginary+z1.imaginary*z2.real);
-}
-inline complex operator+ (const complex &z1, const complex &z2){
-    return complex(z1.real+z2.real,z1.imaginary+z2.imaginary);
-}
-inline complex operator- (const complex &z1, const complex &z2){
-    return complex(z1.real-z2.real,z1.imaginary-z2.imaginary);
-}
-inline complex operator- (const complex &z1, const int &r2){
-    return complex(z1.real-r2,z1.imaginary);
-}
-inline complex operator+ (const complex &z1, const int &r2){
-    return complex(z1.real+r2,z1.imaginary);
-}
-inline complex operator* (const float &r, const complex &z2){
-    return complex(r*z2.real,r*z2.imaginary);
-}
-
-class vec3{
-public:
-        float x;
-        float y;
-        float z;
-
-        vec3() {};
-        vec3(float a, float b, float c) {x = a; y = b; z = c;};
-
-        float length(){return sqrt(x*x+y*y+z*z);}
-        float squared_length(){return length()*length();}
-
-        vec3 unit(){float l = length(); return vec3(x/l,y/l,z/l);}
-};
-
-inline vec3 operator+ (const vec3 &a, const vec3 &b){
-    vec3 temp;
-    temp.x = a.x+b.x;
-    temp.y = a.y+b.y;
-    temp.z = a.z+b.z;
-    return temp;
-}
-
-inline vec3 operator- (const vec3 &a, const vec3 &b){
-    vec3 temp;
-    temp.x = a.x-b.x;
-    temp.y = a.y-b.y;
-    temp.z = a.z-b.z;
-    return temp;
-}
-
-inline float operator* (vec3 &a, vec3 &b){
-    float temp = a.x*b.x + a.y*b.y + a.z*b.z;
-    return temp;
-}
-
-inline vec3 operator* (const vec3& a, const float& s){return vec3(s*a.x,s*a.y,s*a.z);}
-inline vec3 operator* (const float& s, const vec3& a){return a*s;}
-using color = vec3;
-
 /// This function recieves a 'file' & the color of the pixel to write into the file.
 void ColorPixel(std::ostream &s, color PixelColor){
     s << static_cast<int>(255.999*PixelColor.x) << ' '
@@ -99,7 +32,7 @@ color HSL_RGB(int h, float s, float l){
 }
 
 // This is my complex function. It returns a vec3 with the real, imaginary & nothing. IDK why I used vec3, I was probably just lazy.
-vec3 funky(float x, float y){
+vec3 function(float x, float y){
     complex z = complex(x,y);
     complex function = (2*z-z*z*z);
     /// This should hopefully be equilevant to the complex function Z = 2*(x+yi) - (x+yi)*(x+yi)*(x+yi) --- I'm too lazy to expand
@@ -130,7 +63,7 @@ int main(){
             float u = float(-500+i) / (width-1);
             float v = float(-500+j) / (height-1);
 
-            vec3 comp = funky(6*u,6*v);
+            vec3 comp = function(6*u,6*v);
             int theta = int(179+(atan2(comp.x,comp.y))*(180/PI));
 
             float r = sqrt(comp.x*comp.x + comp.y*comp.y);
